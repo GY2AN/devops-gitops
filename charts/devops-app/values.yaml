@@ -1,0 +1,29 @@
+replicaCount: 2
+
+image:
+  repository: 532549085896.dkr.ecr.ap-south-1.amazonaws.com/devops-app
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8000
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi
+
+livenessProbe:
+  path: /health
+  initialDelaySeconds: 5
+  periodSeconds: 10
+
+readinessProbe:
+  path: /ready
+  initialDelaySeconds: 3
+  periodSeconds: 5

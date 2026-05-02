@@ -27,3 +27,6 @@ readinessProbe:
   path: /ready
   initialDelaySeconds: 3
   periodSeconds: 5
+
+imagePullSecrets:
+  - name: ecr-pull-secret

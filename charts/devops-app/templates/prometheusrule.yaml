@@ -1,0 +1,25 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ .Release.Name }}-alerts
+  namespace: production
+  labels:
+    release: kube-prom-stack
+spec:
+  groups:
+    - name: devops-app
+      rules:
+        - alert: AppPodsDown
+          expr: kube_deployment_status_replicas_available{deployment="devops-app"} < 2
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "devops-app has fewer than 2 pods running"
+        - alert: HighRequestLatency
+          expr: histogram_quantile(0.95, rate(app_request_latency_seconds_bucket[5m])) > 0.5
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "p95 latency above 500ms"

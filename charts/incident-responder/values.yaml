@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: 532549085896.dkr.ecr.ap-south-1.amazonaws.com/incident-responder
-  tag: 83150dd77bf2c93092b88ab15b5191b6b8c3fe61
+  tag: 4cfd6b9ea2a489bdb352cf05e2599dc1f0ff6037
   pullPolicy: Always
 
 service:
